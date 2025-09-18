@@ -6,6 +6,7 @@ import br.unicamp.cst.representation.idea.Habit;
 import br.unicamp.cst.representation.idea.Idea;
 import ws3dproxy.model.Creature;
 import ws3dproxy.model.Thing;
+import java.util.ArrayList;
 
 public class VisionHabit implements Habit {
     private Creature c;
@@ -16,9 +17,12 @@ public class VisionHabit implements Habit {
 
     @Override 
     public Idea exec(Idea idea) {
+        Idea root = new Idea("root", "");
+
         c.updateState();
              
         List<Thing> lt = c.getThingsInVision();
-        return new Idea("vision", lt);
+        root.add(new Idea("vision", lt));
+        return root;
     }
 }

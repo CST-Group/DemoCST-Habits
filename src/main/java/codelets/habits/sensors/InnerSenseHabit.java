@@ -16,6 +16,8 @@ public class InnerSenseHabit implements Habit {
     
     @Override 
     public Idea exec(Idea idea) {
+        Idea root = new Idea("root");
+
         cis.get("position.x").setValue(c.getPosition().getX());
         cis.get("position.y").setValue(c.getPosition().getY());
         cis.get("pitch").setValue(c.getPitch());
@@ -35,6 +37,7 @@ public class InnerSenseHabit implements Habit {
             if (points.get("["+i+"]") == null) points.add(p);
         }
 
-        return cis;
+        root.add(cis);
+        return root;
     }
 }

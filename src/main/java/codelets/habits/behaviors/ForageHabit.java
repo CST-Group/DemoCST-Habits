@@ -14,6 +14,8 @@ import ws3dproxy.model.Thing;
 public class ForageHabit implements Habit {
     @Override 
     public Idea exec(Idea idea) {
+        Idea root = new Idea("root");
+
         // get legs action idea
         Idea comm_idea = idea.get("legsAction");
 
@@ -34,7 +36,8 @@ public class ForageHabit implements Habit {
             try {
                 message.put("ACTION", "FORAGE");
                 //activation=1.0;
-                return new Idea("legsAction", message.toString());
+                root.add(new Idea("legsAction", message.toString()));
+                return root;
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -45,7 +48,8 @@ public class ForageHabit implements Habit {
         //JSONObject message=new JSONObject();
         // message.put("ACTION", "FORAGE");
         // return new Idea("legsAction", message.toString());
-        return comm_idea; //workaround to avoid resetting what GoToClosestApple is doing
+        root.add(comm_idea);
+        return root; //workaround to avoid resetting what GoToClosestApple is doing
         // return null; //  bug: without activation, it tries to set legsAction to null even when the legsAction might be go to apple
     }
 }

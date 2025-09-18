@@ -19,6 +19,8 @@ public class GoToClosestAppleHabit implements Habit {
 
     @Override 
     public Idea exec(Idea idea) {
+        Idea root = new Idea("root");
+
         // get legs action idea
         Idea comm_idea = idea.get("legsAction");
 
@@ -77,7 +79,8 @@ public class GoToClosestAppleHabit implements Habit {
                     message.add(Idea.createIdea("SPEED",0, Idea.guessType("Property",null,1.0,0.5)));
                     // activation=0.5;
                 }
-                return new Idea("legsAction", toJson(message));
+                root.add(new Idea("legsAction", toJson(message)));
+                return root;
             } catch (JSONException e) {
                 e.printStackTrace();
                 return null;
@@ -85,7 +88,8 @@ public class GoToClosestAppleHabit implements Habit {
         } else {
             // activation=0.0;
             //return new Idea("legsAction", "");
-            return comm_idea; // workaround to avoid resetting what Forage is doing
+            root.add(comm_idea);
+            return root; // workaround to avoid resetting what Forage is doing
         }
     }
 

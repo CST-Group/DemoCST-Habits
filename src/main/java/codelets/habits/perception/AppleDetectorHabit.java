@@ -12,6 +12,8 @@ import ws3dproxy.model.Thing;
 public class AppleDetectorHabit implements Habit {
     @Override 
     public Idea exec(Idea idea) {
+        Idea root = new Idea("root");
+
         // get vision
         List<Thing> vision = Collections.synchronizedList(new ArrayList<Thing>());
         Idea vision_idea = idea.get("vision");
@@ -51,6 +53,7 @@ public class AppleDetectorHabit implements Habit {
             }
         }
 
-        return new Idea("knownApples", known);
+        root.add(new Idea("knownApples", known));
+        return root;
     }
 }

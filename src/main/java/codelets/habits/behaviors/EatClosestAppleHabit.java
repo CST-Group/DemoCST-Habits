@@ -25,6 +25,8 @@ public class EatClosestAppleHabit implements Habit {
 
     @Override 
     public Idea exec(Idea idea) {
+        Idea root = new Idea("root");
+
         // get cis
         Idea cis = idea.get("cis");
         if (cis == null) {
@@ -82,16 +84,18 @@ public class EatClosestAppleHabit implements Habit {
 					message.put("OBJECT", appleName);
 					message.put("ACTION", "EATIT");
                     DestroyClosestApple();
-                    //Idea knownRet = new Idea("knownApples", known);
+                    Idea knownRet = new Idea("knownApples", known);
                     Idea handsRet = new Idea("handsAction", message.toString());
-					//knownRet.add(handsRet);
-                    return handsRet;
+					root.add(knownRet);
+                    root.add(handsRet);
+                    return root;
                     // activation=1.0;
 				} else {
-					//Idea knownRet = new Idea("knownApples", known);
+					Idea knownRet = new Idea("knownApples", known);
                     Idea handsRet = new Idea("handsAction", ""); //nothing
-					//knownRet.add(handsRet);
-                    return handsRet;
+					root.add(knownRet);
+                    root.add(handsRet);
+                    return root;
                     // activation=0.0;
 				}
 				
@@ -102,10 +106,11 @@ public class EatClosestAppleHabit implements Habit {
                 return null;
 			}
 		} else {
-			//Idea knownRet = new Idea("knownApples", known);
+			Idea knownRet = new Idea("knownApples", known);
             Idea handsRet = new Idea("handsAction", ""); //nothing
-            //knownRet.add(handsRet);
-            return handsRet;
+            root.add(knownRet);
+            root.add(handsRet);
+            return root;
             // activation=0.0;
 		}
     //System.out.println("Before: "+known.size()+ " "+known);

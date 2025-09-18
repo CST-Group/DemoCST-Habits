@@ -12,6 +12,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ClosestAppleDetectorHabit implements Habit {
     @Override 
     public Idea exec(Idea idea) {
+        Idea root = new Idea("root");
+
         // get cis
         Idea cis = idea.get("cis");
         if (cis == null) {
@@ -54,7 +56,8 @@ public class ClosestAppleDetectorHabit implements Habit {
             }
         }
 
-        return new Idea("closestApple", closest_apple);
+        root.add(new Idea("closestApple", closest_apple));
+        return root;
     }
 
     private double calculateDistance(double x1, double y1, double x2, double y2) {
