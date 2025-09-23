@@ -12,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ClosestAppleDetectorHabit implements Habit {
     @Override 
     public Idea exec(Idea idea) {
-        Idea root = new Idea("root");
+        Idea root = new Idea("root", "");
 
         // get cis
         Idea cis = idea.get("cis");

@@ -16,7 +16,7 @@ public class InnerSenseHabit implements Habit {
     
     @Override 
     public Idea exec(Idea idea) {
-        Idea root = new Idea("root");
+        Idea root = new Idea("root", "");
 
         cis.get("position.x").setValue(c.getPosition().getX());
         cis.get("position.y").setValue(c.getPosition().getY());

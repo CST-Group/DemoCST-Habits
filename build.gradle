@@ -10,6 +10,9 @@ if (!hasProperty('mainClass')) {
 }
 
 repositories {
+    flatDir {
+        dirs '../cst-desktop/build/libs'
+    }
     mavenCentral()
     maven {
         url "https://github.com/rosjava/rosjava_mvn_repo/raw/master"
@@ -21,7 +24,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.CST-Group:cst-desktop:1.1.0'
+    // implementation 'com.github.CST-Group:cst-desktop:1.1.0'
+    implementation ':cst-desktop:1.1.0-full'
     implementation 'com.github.CST-Group:WS3DProxy:0.0.3'
     implementation 'org.json:json:20180813'
     testImplementation group: 'junit', name: 'junit', version: '4.10'
