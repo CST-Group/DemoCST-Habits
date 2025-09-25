@@ -15,6 +15,7 @@ import ws3dproxy.model.Thing;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class EatClosestAppleHabit implements Habit {
+    private volatile double activation = 0.0d;
 	private double reachDistance;
     private Thing closestApple = null;
     private List<Thing> known = Collections.synchronizedList(new ArrayList<Thing>());
@@ -25,7 +26,7 @@ public class EatClosestAppleHabit implements Habit {
 
     @Override 
     public Idea exec(Idea idea) {
-        Idea root = new Idea("root");
+        Idea root = new Idea("root", "");
 
         // get cis
         Idea cis = idea.get("cis");
@@ -86,17 +87,21 @@ public class EatClosestAppleHabit implements Habit {
                     DestroyClosestApple();
                     Idea knownRet = new Idea("knownApples", known);
                     Idea handsRet = new Idea("handsAction", message.toString());
+                    activation=1.0;
+                    handsRet.add(new Idea("activation", activation));
+
 					root.add(knownRet);
                     root.add(handsRet);
                     return root;
-                    // activation=1.0;
 				} else {
 					Idea knownRet = new Idea("knownApples", known);
                     Idea handsRet = new Idea("handsAction", ""); //nothing
+                    activation=0.0;
+                    handsRet.add(new Idea("activation", activation));
+
 					root.add(knownRet);
                     root.add(handsRet);
-                    return root;
-                    // activation=0.0;
+                    return root;  
 				}
 				
                 //System.out.println(message);
@@ -108,10 +113,12 @@ public class EatClosestAppleHabit implements Habit {
 		} else {
 			Idea knownRet = new Idea("knownApples", known);
             Idea handsRet = new Idea("handsAction", ""); //nothing
+            activation=0.0;
+            handsRet.add(new Idea("activation", activation));
+
             root.add(knownRet);
             root.add(handsRet);
             return root;
-            // activation=0.0;
 		}
     //System.out.println("Before: "+known.size()+ " "+known);
     //System.out.println("After: "+known.size()+ " "+known);

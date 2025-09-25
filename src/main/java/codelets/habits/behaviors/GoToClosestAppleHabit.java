@@ -9,6 +9,7 @@ import br.unicamp.cst.representation.idea.Idea;
 import ws3dproxy.model.Thing;
 
 public class GoToClosestAppleHabit implements Habit {
+    private volatile double activation = 0.0d;
     private int creatureBasicSpeed;
 	private double reachDistance;
 
@@ -19,10 +20,10 @@ public class GoToClosestAppleHabit implements Habit {
 
     @Override 
     public Idea exec(Idea idea) {
-        Idea root = new Idea("root");
+        Idea root = new Idea("root", "");
 
         // get legs action idea
-        Idea comm_idea = idea.get("legsAction");
+        // Idea comm_idea = idea.get("legsAction");
 
         // get cis
         Idea cis = idea.get("cis");
@@ -71,25 +72,28 @@ public class GoToClosestAppleHabit implements Habit {
                     message.add(Idea.createIdea("X",(int)appleX, Idea.guessType("Property",null,1.0,0.5)));
                     message.add(Idea.createIdea("Y",(int)appleY, Idea.guessType("Property",null,1.0,0.5)));
                     message.add(Idea.createIdea("SPEED",creatureBasicSpeed, Idea.guessType("Property",null,1.0,0.5)));
-                    // activation=1.0;
+                    activation=1.0;
                 } else {//Stop
                     message.add(Idea.createIdea("ACTION","GOTO", Idea.guessType("Property",null,1.0,0.5)));
                     message.add(Idea.createIdea("X",(int)appleX, Idea.guessType("Property",null,1.0,0.5)));
                     message.add(Idea.createIdea("Y",(int)appleY, Idea.guessType("Property",null,1.0,0.5)));
                     message.add(Idea.createIdea("SPEED",0, Idea.guessType("Property",null,1.0,0.5)));
-                    // activation=0.5;
+                    activation=0.5;
                 }
-                root.add(new Idea("legsAction", toJson(message)));
+                Idea legsActionIdea = new Idea("legsAction", toJson(message));
+                legsActionIdea.add(new Idea("activation", activation));
+                root.add(legsActionIdea);
                 return root;
             } catch (JSONException e) {
                 e.printStackTrace();
                 return null;
             }	
         } else {
-            // activation=0.0;
-            //return new Idea("legsAction", "");
-            root.add(comm_idea);
-            return root; // workaround to avoid resetting what Forage is doing
+            activation=0.0;
+            Idea legsActionIdea = new Idea("legsAction", "");
+            legsActionIdea.add(new Idea("activation", activation));
+            root.add(legsActionIdea);
+            return root;
         }
     }
 

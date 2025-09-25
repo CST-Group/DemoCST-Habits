@@ -12,12 +12,14 @@ import br.unicamp.cst.representation.idea.Idea;
 import ws3dproxy.model.Thing;
 
 public class ForageHabit implements Habit {
+    private volatile double activation = 0.0d;
+
     @Override 
     public Idea exec(Idea idea) {
-        Idea root = new Idea("root");
+        Idea root = new Idea("root", "");
 
         // get legs action idea
-        Idea comm_idea = idea.get("legsAction");
+        // Idea comm_idea = idea.get("legsAction");
 
         // get knownApples
         List<Thing> known = Collections.synchronizedList(new ArrayList<Thing>());
@@ -35,8 +37,10 @@ public class ForageHabit implements Habit {
             JSONObject message=new JSONObject();
             try {
                 message.put("ACTION", "FORAGE");
-                //activation=1.0;
-                root.add(new Idea("legsAction", message.toString()));
+                activation=1.0;
+                Idea legsActionIdea = new Idea("legsAction", message.toString());
+                legsActionIdea.add(new Idea("activation", activation));
+                root.add(legsActionIdea);
                 return root;
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
@@ -44,12 +48,12 @@ public class ForageHabit implements Habit {
                 return null;
             }
         }
-        //else activation=0.0;
-        //JSONObject message=new JSONObject();
-        // message.put("ACTION", "FORAGE");
-        // return new Idea("legsAction", message.toString());
-        root.add(comm_idea);
-        return root; //workaround to avoid resetting what GoToClosestApple is doing
-        // return null; //  bug: without activation, it tries to set legsAction to null even when the legsAction might be go to apple
+        else  activation=0.0;
+        JSONObject message=new JSONObject();
+        message.put("ACTION", "FORAGE");
+        Idea legsActionIdea = new Idea("legsAction", message.toString());
+        legsActionIdea.add(new Idea("activation", activation));
+        root.add(legsActionIdea);
+        return root;
     }
 }

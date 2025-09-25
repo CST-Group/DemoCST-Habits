@@ -153,8 +153,7 @@ public class AgentMind extends Mind {
         vh.setValue(visionHabit);
         vh.setScope(2);
         visionHabitMC.setI(vh);
-        HabitExecutionerCodelet visionHEC = new HabitExecutionerCodelet();
-        visionHEC.setName("visionHEC");
+        HabitExecutionerCodelet visionHEC = new HabitExecutionerCodelet("visionHEC");
         visionHEC.addInput(visionHabitMC);
         visionHEC.addOutput(visionMC); // This is the output memory object
         // visionHEC.setPublishSubscribe(true);
@@ -166,8 +165,7 @@ public class AgentMind extends Mind {
         ish.setValue(innerSenseHabit);
         ish.setScope(2);
         innerSenseHabitMC.setI(ish);
-        HabitExecutionerCodelet innerSenseHEC = new HabitExecutionerCodelet();
-        innerSenseHEC.setName("innerSenseHEC");
+        HabitExecutionerCodelet innerSenseHEC = new HabitExecutionerCodelet("innerSenseHEC");
         innerSenseHEC.addInput(innerSenseHabitMC);
         innerSenseHEC.addOutput(innerSenseMC); // This is the output memory object
         // innerSenseHEC.setPublishSubscribe(true);
@@ -180,8 +178,7 @@ public class AgentMind extends Mind {
         adh.setValue(appleDetectorHabit);
         adh.setScope(2);
         appleDetectorHabitMC.setI(adh);
-        HabitExecutionerCodelet appleDetectorHEC = new HabitExecutionerCodelet();
-        appleDetectorHEC.setName("appleDetectorHEC");
+        HabitExecutionerCodelet appleDetectorHEC = new HabitExecutionerCodelet("appleDetectorHEC");
         appleDetectorHEC.addInput(appleDetectorHabitMC);
         appleDetectorHEC.addInput(knownApplesMC);
         appleDetectorHEC.addInput(visionMC);
@@ -195,8 +192,7 @@ public class AgentMind extends Mind {
         cadh.setValue(closestAppleDetectorHabit);
         cadh.setScope(2);
         closestAppleDetectorHabitMC.setI(cadh);
-        HabitExecutionerCodelet closestAppleDetectorHEC = new HabitExecutionerCodelet();
-        closestAppleDetectorHEC.setName("closestAppleDetectorHEC");
+        HabitExecutionerCodelet closestAppleDetectorHEC = new HabitExecutionerCodelet("closestAppleDetectorHEC");
         closestAppleDetectorHEC.addInput(closestAppleDetectorHabitMC);
         closestAppleDetectorHEC.addInput(innerSenseMC);
         closestAppleDetectorHEC.addInput(knownApplesMC);
@@ -211,12 +207,11 @@ public class AgentMind extends Mind {
         gtcah.setValue(goToClosestAppleHabit);
         gtcah.setScope(2);
         goToClosestAppleHabitMC.setI(gtcah);
-        HabitExecutionerCodelet goToClosestAppleHEC = new HabitExecutionerCodelet();
-        goToClosestAppleHEC.setName("goToClosestAppleHEC");
+        HabitExecutionerCodelet goToClosestAppleHEC = new HabitExecutionerCodelet("goToClosestAppleHEC");
         goToClosestAppleHEC.addInput(goToClosestAppleHabitMC);
         goToClosestAppleHEC.addInput(closestAppleMC);
         goToClosestAppleHEC.addInput(innerSenseMC);
-        goToClosestAppleHEC.addInput(legsMC);
+        // goToClosestAppleHEC.addInput(legsMC);
         goToClosestAppleHEC.addOutput(legsMC); // This is the output memory object
         // goToClosestAppleHEC.setPublishSubscribe(true);
         insertCodelet(goToClosestAppleHEC);
@@ -228,8 +223,7 @@ public class AgentMind extends Mind {
         ecah.setValue(eatClosestAppleHabit);
         ecah.setScope(2);
         eatClosestAppleHabitMC.setI(ecah);
-        HabitExecutionerCodelet eatClosestAppleHEC = new HabitExecutionerCodelet();
-        eatClosestAppleHEC.setName("eatClosestAppleHEC");
+        HabitExecutionerCodelet eatClosestAppleHEC = new HabitExecutionerCodelet("eatClosestAppleHEC");
         eatClosestAppleHEC.setTimeStep(50);
         eatClosestAppleHEC.addInput(eatClosestAppleHabitMC);
         eatClosestAppleHEC.addInput(closestAppleMC);
@@ -247,11 +241,10 @@ public class AgentMind extends Mind {
         fh.setValue(forageHabit);
         fh.setScope(2);
         forageHabitMC.setI(fh);
-        HabitExecutionerCodelet forageHEC = new HabitExecutionerCodelet();
-        forageHEC.setName("forageHEC");
+        HabitExecutionerCodelet forageHEC = new HabitExecutionerCodelet("forageHEC");
         forageHEC.addInput(forageHabitMC);
         forageHEC.addInput(knownApplesMC);
-        forageHEC.addInput(legsMC);
+        // forageHEC.addInput(legsMC);
         forageHEC.addOutput(legsMC); // This is the output memory object
         // forageHEC.setPublishSubscribe(true);
         insertCodelet(forageHEC);
@@ -264,8 +257,7 @@ public class AgentMind extends Mind {
         lah.setValue(legsActionHabit);
         lah.setScope(2);
         legsActionHabitMC.setI(lah);
-        HabitExecutionerCodelet legsActionHEC = new HabitExecutionerCodelet();
-        legsActionHEC.setName("legsActionHEC");
+        HabitExecutionerCodelet legsActionHEC = new HabitExecutionerCodelet("legsActionHEC");
         legsActionHEC.addInput(legsActionHabitMC);
         legsActionHEC.addInput(legsMC);
         // legsActionHEC.setPublishSubscribe(true);
@@ -277,8 +269,7 @@ public class AgentMind extends Mind {
         hah.setValue(handsActionHabit);
         hah.setScope(2);
         handsActionHabitMC.setI(hah);
-        HabitExecutionerCodelet handsActionHEC = new HabitExecutionerCodelet();
-        handsActionHEC.setName("handsActionHEC");
+        HabitExecutionerCodelet handsActionHEC = new HabitExecutionerCodelet("handsActionHEC");
         handsActionHEC.addInput(handsActionHabitMC);
         handsActionHEC.addInput(handsMC);
         // handsActionHEC.setPublishSubscribe(true);
