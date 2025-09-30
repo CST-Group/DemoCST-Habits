@@ -92,6 +92,7 @@ public class EatClosestAppleHabit implements Habit {
 
 					root.add(knownRet);
                     root.add(handsRet);
+                    root.add(new Idea("activation", activation));
                     return root;
 				} else {
 					Idea knownRet = new Idea("knownApples", known);
@@ -101,6 +102,7 @@ public class EatClosestAppleHabit implements Habit {
 
 					root.add(knownRet);
                     root.add(handsRet);
+                    root.add(new Idea("activation", activation));
                     return root;  
 				}
 				
@@ -118,6 +120,7 @@ public class EatClosestAppleHabit implements Habit {
 
             root.add(knownRet);
             root.add(handsRet);
+            root.add(new Idea("activation", activation));
             return root;
 		}
     //System.out.println("Before: "+known.size()+ " "+known);

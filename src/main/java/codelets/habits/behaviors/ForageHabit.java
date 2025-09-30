@@ -41,6 +41,7 @@ public class ForageHabit implements Habit {
                 Idea legsActionIdea = new Idea("legsAction", message.toString());
                 legsActionIdea.add(new Idea("activation", activation));
                 root.add(legsActionIdea);
+                root.add(new Idea("activation", activation));
                 return root;
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
@@ -48,12 +49,15 @@ public class ForageHabit implements Habit {
                 return null;
             }
         }
-        else  activation=0.0;
-        JSONObject message=new JSONObject();
-        message.put("ACTION", "FORAGE");
-        Idea legsActionIdea = new Idea("legsAction", message.toString());
-        legsActionIdea.add(new Idea("activation", activation));
-        root.add(legsActionIdea);
-        return root;
+        else {
+            activation=0.0;
+            JSONObject message=new JSONObject();
+            message.put("ACTION", "FORAGE");
+            Idea legsActionIdea = new Idea("legsAction", message.toString());
+            legsActionIdea.add(new Idea("activation", activation));
+            root.add(legsActionIdea);
+            root.add(new Idea("activation", activation));
+            return root;
+        }
     }
 }

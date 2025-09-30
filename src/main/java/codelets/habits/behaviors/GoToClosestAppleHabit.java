@@ -83,6 +83,7 @@ public class GoToClosestAppleHabit implements Habit {
                 Idea legsActionIdea = new Idea("legsAction", toJson(message));
                 legsActionIdea.add(new Idea("activation", activation));
                 root.add(legsActionIdea);
+                root.add(new Idea("activation", activation));
                 return root;
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -93,6 +94,7 @@ public class GoToClosestAppleHabit implements Habit {
             Idea legsActionIdea = new Idea("legsAction", "");
             legsActionIdea.add(new Idea("activation", activation));
             root.add(legsActionIdea);
+            root.add(new Idea("activation", activation));
             return root;
         }
     }
