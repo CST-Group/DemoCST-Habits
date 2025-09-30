@@ -57,13 +57,13 @@ public class AgentMind extends Mind {
     public AgentMind(Environment env) {
         super();
 
-        // Create CodeletGroups and MemoryGroups for organizing Codelets and Memories
-        // Codelets
+        // Codelets Groups
         createCodeletGroup("Sensory");
         createCodeletGroup("Perception");
         createCodeletGroup("Behavioral");
         createCodeletGroup("Motor");
-        // Memories
+
+        // Memories Groups
         createMemoryGroup("Sensory");
         createMemoryGroup("Working");
         createMemoryGroup("Motor");
@@ -76,56 +76,28 @@ public class AgentMind extends Mind {
         Memory legsMC;
         Memory handsMC;
 
-        //Initialize Memory Objects
-        // Vision
-        //List<Thing> vision_list = Collections.synchronizedList(new ArrayList<Thing>());
-        //Idea vision_list_idea = Idea.createIdea("vision",vision_list, Idea.guessType("AbstractObject",null,1.0,0.5));
+        // Initialize Memory Containers
         visionMC=createMemoryContainer("vision");
-        registerMemory(visionMC,"Sensory");
-
-        // InnerSense
-        //CreatureInnerSense cis = new CreatureInnerSense();
-        Idea cis = Idea.createIdea("cis","", Idea.guessType("AbstractObject",null,1.0,0.5));
-        cis.add(Idea.createIdea("cis.pitch", 0D, Idea.guessType("Property", null,1.0,0.5)));
-        cis.add(Idea.createIdea("cis.fuel", 0D, Idea.guessType("Property", null,1.0,0.5)));
-        Idea position = Idea.createIdea("cis.position","", Idea.guessType("Property",null,1.0,0.5));
-        position.add(Idea.createIdea("cis.position.x",0D,Idea.guessType("QualityDimension",null,1.0,0.5)));
-        position.add(Idea.createIdea("cis.position.y",0D,Idea.guessType("QualityDimension",null,1.0,0.5)));
-        cis.add(position);
-        Idea fov = Idea.createIdea("cis.FOV","", Idea.guessType("Property", null,1.0,0.5));
-        Idea bounds = Idea.createIdea("cis.FOV.bounds","", Idea.guessType("Property", null,1.0,0.5));
-        bounds.add(Idea.createIdea("cis.FOV.bounds.x",null, Idea.guessType("Property", null,1.0,0.5)));
-        bounds.add(Idea.createIdea("cis.FOV.bounds.y",null, Idea.guessType("Property", null,1.0,0.5)));
-        bounds.add(Idea.createIdea("cis.FOV.bounds.height",null, Idea.guessType("Property", null,1.0,0.5)));
-        bounds.add(Idea.createIdea("cis.FOV.bounds.width",null, Idea.guessType("Property", null,1.0,0.5)));
-        fov.add(bounds);
-        fov.add(Idea.createIdea("cis.FOV.npoints",0, Idea.guessType("Property", null,1.0,0.5)));
-        fov.add(Idea.createIdea("cis.FOV.points","", Idea.guessType("Property", null,1.0,0.5)));
-        cis.add(fov);
         innerSenseMC=createMemoryContainer("cis");
-        registerMemory(innerSenseMC,"Sensory");
-
-        // ClosestApple
-        //Thing closestApple = null;
-        //Idea closestApple_idea = Idea.createIdea("closestApple",closestApple, Idea.guessType("AbstractObject",null,1.0,0.5));
         closestAppleMC=createMemoryContainer("closestApple");
-        registerMemory(closestAppleMC,"Working");
-
-        // KnownApples
-        //List<Thing> knownApples_list = Collections.synchronizedList(new ArrayList<Thing>());
-        //Idea knownApples_list_idea = Idea.createIdea("knownApples",knownApples_list, Idea.guessType("AbstractObject",null,1.0,0.5));
         knownApplesMC=createMemoryContainer("knownApples");
-        registerMemory(knownApplesMC,"Working");
-
-        // Legs
         legsMC=createMemoryContainer("legsAction");
-        registerMemory(legsMC,"Motor");
-
-        // Hands
         handsMC=createMemoryContainer("handsAction");
+
+        // Register Memory Containers
+        registerMemory(visionMC,"Sensory");
+        registerMemory(innerSenseMC,"Sensory");
+        registerMemory(closestAppleMC,"Working");
+        registerMemory(knownApplesMC,"Working");
+        registerMemory(legsMC,"Motor");
         registerMemory(handsMC,"Motor");
 
-        // Declare Memory Containers
+        // Habits Memories Groups
+        createMemoryGroup("Sensory Habits");
+        createMemoryGroup("Working Habits");
+        createMemoryGroup("Motor Habits");
+
+        // Declare Habits Memory Containers
         MemoryContainer visionHabitMC;
         MemoryContainer innerSenseHabitMC;
         MemoryContainer appleDetectorHabitMC;
@@ -136,16 +108,27 @@ public class AgentMind extends Mind {
         MemoryContainer legsActionHabitMC;
         MemoryContainer handsActionHabitMC;
 
-        // Initialize Memory Containers
-        visionHabitMC = createMemoryContainer("VisionHabits");
-        innerSenseHabitMC = createMemoryContainer("InnerSenseHabits");
-        appleDetectorHabitMC = createMemoryContainer("AppleDetectorHabits");
-        closestAppleDetectorHabitMC = createMemoryContainer("ClosestAppleDetectorHabits");
-        goToClosestAppleHabitMC = createMemoryContainer("GoToClosestAppleHabits");
-        eatClosestAppleHabitMC = createMemoryContainer("EatClosestAppleHabits");
-        forageHabitMC = createMemoryContainer("ForageHabits");
-        legsActionHabitMC = createMemoryContainer("LegsActionHabits");
-        handsActionHabitMC = createMemoryContainer("HandsActionHabits");
+        // Initialize Habits Memory Containers
+        visionHabitMC = createMemoryContainer("visionHabits");
+        innerSenseHabitMC = createMemoryContainer("innerSenseHabits");
+        appleDetectorHabitMC = createMemoryContainer("appleDetectorHabits");
+        closestAppleDetectorHabitMC = createMemoryContainer("closestAppleDetectorHabits");
+        goToClosestAppleHabitMC = createMemoryContainer("goToClosestAppleHabits");
+        eatClosestAppleHabitMC = createMemoryContainer("eatClosestAppleHabits");
+        forageHabitMC = createMemoryContainer("forageHabits");
+        legsActionHabitMC = createMemoryContainer("legsActionHabits");
+        handsActionHabitMC = createMemoryContainer("handsActionHabits");
+
+        // Register Habits Memory Containers
+        registerMemory(visionHabitMC,"Sensory Habits");
+        registerMemory(innerSenseHabitMC,"Sensory Habits");
+        registerMemory(appleDetectorHabitMC,"Working Habits");
+        registerMemory(closestAppleDetectorHabitMC,"Working Habits");
+        registerMemory(goToClosestAppleHabitMC,"Working Habits");
+        registerMemory(eatClosestAppleHabitMC,"Working Habits");
+        registerMemory(forageHabitMC,"Motor Habits");
+        registerMemory(legsActionHabitMC,"Motor Habits");
+        registerMemory(handsActionHabitMC,"Motor Habits");
 
         // Create Sensor Habits
         Idea vh = new Idea("visionHabit");
@@ -161,6 +144,7 @@ public class AgentMind extends Mind {
         registerCodelet(visionHEC,"Sensory");
 
         Idea ish = new Idea("innerSenseHabit");
+        Idea cis = getCis();
         Habit innerSenseHabit = new InnerSenseHabit(env.c, cis);
         ish.setValue(innerSenseHabit);
         ish.setScope(2);
@@ -224,7 +208,6 @@ public class AgentMind extends Mind {
         ecah.setScope(2);
         eatClosestAppleHabitMC.setI(ecah);
         HabitExecutionerCodelet eatClosestAppleHEC = new HabitExecutionerCodelet("eatClosestApple");
-        eatClosestAppleHEC.setTimeStep(50);
         eatClosestAppleHEC.addInput(eatClosestAppleHabitMC);
         eatClosestAppleHEC.addInput(closestAppleMC);
         eatClosestAppleHEC.addInput(innerSenseMC);
@@ -279,7 +262,32 @@ public class AgentMind extends Mind {
         // sets a time step for running the codelets to avoid heating too much your machine
         for (Codelet c : this.getCodeRack().getAllCodelets())
             c.setTimeStep(200);
+
+        eatClosestAppleHEC.setTimeStep(50);
         
-        start();  
+        start();
+        
+    }
+
+    private Idea getCis() {
+        Idea cis = Idea.createIdea("cis","", Idea.guessType("AbstractObject",null,1.0,0.5));
+        cis.add(Idea.createIdea("cis.pitch", 0D, Idea.guessType("Property", null,1.0,0.5)));
+        cis.add(Idea.createIdea("cis.fuel", 0D, Idea.guessType("Property", null,1.0,0.5)));
+        Idea position = Idea.createIdea("cis.position","", Idea.guessType("Property",null,1.0,0.5));
+        position.add(Idea.createIdea("cis.position.x",0D,Idea.guessType("QualityDimension",null,1.0,0.5)));
+        position.add(Idea.createIdea("cis.position.y",0D,Idea.guessType("QualityDimension",null,1.0,0.5)));
+        cis.add(position);
+        Idea fov = Idea.createIdea("cis.FOV","", Idea.guessType("Property", null,1.0,0.5));
+        Idea bounds = Idea.createIdea("cis.FOV.bounds","", Idea.guessType("Property", null,1.0,0.5));
+        bounds.add(Idea.createIdea("cis.FOV.bounds.x",null, Idea.guessType("Property", null,1.0,0.5)));
+        bounds.add(Idea.createIdea("cis.FOV.bounds.y",null, Idea.guessType("Property", null,1.0,0.5)));
+        bounds.add(Idea.createIdea("cis.FOV.bounds.height",null, Idea.guessType("Property", null,1.0,0.5)));
+        bounds.add(Idea.createIdea("cis.FOV.bounds.width",null, Idea.guessType("Property", null,1.0,0.5)));
+        fov.add(bounds);
+        fov.add(Idea.createIdea("cis.FOV.npoints",0, Idea.guessType("Property", null,1.0,0.5)));
+        fov.add(Idea.createIdea("cis.FOV.points","", Idea.guessType("Property", null,1.0,0.5)));
+        cis.add(fov);
+
+        return cis;
     }
 }
