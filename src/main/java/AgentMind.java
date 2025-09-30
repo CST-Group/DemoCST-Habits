@@ -148,7 +148,7 @@ public class AgentMind extends Mind {
         handsActionHabitMC = createMemoryContainer("HandsActionHabits");
 
         // Create Sensor Habits
-        Idea vh = new Idea("VisionHabit");
+        Idea vh = new Idea("visionHabit");
         Habit visionHabit = new VisionHabit(env.c);
         vh.setValue(visionHabit);
         vh.setScope(2);
@@ -160,7 +160,7 @@ public class AgentMind extends Mind {
         insertCodelet(visionHEC);
         registerCodelet(visionHEC,"Sensory");
 
-        Idea ish = new Idea("InnerSenseHabit");
+        Idea ish = new Idea("innerSenseHabit");
         Habit innerSenseHabit = new InnerSenseHabit(env.c, cis);
         ish.setValue(innerSenseHabit);
         ish.setScope(2);
@@ -173,7 +173,7 @@ public class AgentMind extends Mind {
         registerCodelet(innerSenseHEC,"Sensory");
 
         // Create Perception Codelets
-        Idea adh = new Idea("AppleDetectorHabit");
+        Idea adh = new Idea("appleDetectorHabit");
         Habit appleDetectorHabit = new AppleDetectorHabit();
         adh.setValue(appleDetectorHabit);
         adh.setScope(2);
@@ -187,7 +187,7 @@ public class AgentMind extends Mind {
         insertCodelet(appleDetectorHEC);
         registerCodelet(appleDetectorHEC,"Perception");
 
-        Idea cadh = new Idea("ClosestAppleDetectorHabit");
+        Idea cadh = new Idea("closestAppleDetectorHabit");
         Habit closestAppleDetectorHabit = new ClosestAppleDetectorHabit();
         cadh.setValue(closestAppleDetectorHabit);
         cadh.setScope(2);
@@ -202,7 +202,7 @@ public class AgentMind extends Mind {
         registerCodelet(closestAppleDetectorHEC,"Perception");
 
         // Create Behavior Codelets
-        Idea gtcah = new Idea("GoToClosestAppleHabit");
+        Idea gtcah = new Idea("goToClosestAppleHabit");
         Habit goToClosestAppleHabit = new GoToClosestAppleHabit(creatureBasicSpeed, reachDistance);
         gtcah.setValue(goToClosestAppleHabit);
         gtcah.setScope(2);
