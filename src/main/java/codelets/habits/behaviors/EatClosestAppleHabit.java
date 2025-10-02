@@ -24,6 +24,7 @@ public class EatClosestAppleHabit implements Habit {
 		this.reachDistance = reachDistance;
     }
 
+    @SuppressWarnings("unchecked")
     @Override 
     public Idea exec(Idea idea) {
         Idea root = new Idea("root", "");
@@ -46,7 +47,9 @@ public class EatClosestAppleHabit implements Habit {
             try {
                 known = (List<Thing>) knownApples_idea.getValue();
             } catch (ClassCastException e) {
-                e.printStackTrace();
+                Object item = knownApples_idea.getValue();
+                String itemType = (item != null) ? item.getClass().getName() : "null";
+                System.err.println("Data Mismatch Warning: An item in the 'knownApples' list was of an unexpected type and has been ignored. Expected 'Thing', but found '" + itemType + "'.");
                 return null;
             }
         }

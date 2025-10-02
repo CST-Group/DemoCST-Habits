@@ -14,12 +14,10 @@ import ws3dproxy.model.Thing;
 public class ForageHabit implements Habit {
     private volatile double activation = 0.0d;
 
+    @SuppressWarnings("unchecked")
     @Override 
     public Idea exec(Idea idea) {
         Idea root = new Idea("root", "");
-
-        // get legs action idea
-        // Idea comm_idea = idea.get("legsAction");
 
         // get knownApples
         List<Thing> known = Collections.synchronizedList(new ArrayList<Thing>());
@@ -28,7 +26,9 @@ public class ForageHabit implements Habit {
             try {
                 known = (List<Thing>) knownApples_idea.getValue();
             } catch (ClassCastException e) {
-                e.printStackTrace();
+                Object item = knownApples_idea.getValue();
+                String itemType = (item != null) ? item.getClass().getName() : "null";
+                System.err.println("Data Mismatch Warning: An item in the 'knownApples' list was of an unexpected type and has been ignored. Expected 'Thing', but found '" + itemType + "'.");
                 return null;
             }
         }

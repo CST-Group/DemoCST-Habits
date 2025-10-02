@@ -22,9 +22,6 @@ public class GoToClosestAppleHabit implements Habit {
     public Idea exec(Idea idea) {
         Idea root = new Idea("root", "");
 
-        // get legs action idea
-        // Idea comm_idea = idea.get("legsAction");
-
         // get cis
         Idea cis = idea.get("cis");
         if (cis == null) {

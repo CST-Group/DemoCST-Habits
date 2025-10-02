@@ -10,6 +10,7 @@ import br.unicamp.cst.representation.idea.Idea;
 import ws3dproxy.model.Thing;
 
 public class AppleDetectorHabit implements Habit {
+    @SuppressWarnings("unchecked")
     @Override 
     public Idea exec(Idea idea) {
         Idea root = new Idea("root", "");
@@ -21,7 +22,9 @@ public class AppleDetectorHabit implements Habit {
             try {
                 vision = (List<Thing>) vision_idea.getValue();
             } catch (ClassCastException e) {
-                e.printStackTrace();
+                Object item = vision_idea.getValue();
+                String itemType = (item != null) ? item.getClass().getName() : "null";
+                System.err.println("Data Mismatch Warning: An item in the 'knownApples' list was of an unexpected type and has been ignored. Expected 'Thing', but found '" + itemType + "'.");
                 return null;
             }
         }
@@ -33,7 +36,9 @@ public class AppleDetectorHabit implements Habit {
             try {
                 known = (List<Thing>) knownApples_idea.getValue();
             } catch (ClassCastException e) {
-                e.printStackTrace();
+                Object item = knownApples_idea.getValue();
+                String itemType = (item != null) ? item.getClass().getName() : "null";
+                System.err.println("Data Mismatch Warning: An item in the 'knownApples' list was of an unexpected type and has been ignored. Expected 'Thing', but found '" + itemType + "'.");
                 return null;
             }
         }
