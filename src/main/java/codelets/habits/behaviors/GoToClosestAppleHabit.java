@@ -61,7 +61,6 @@ public class GoToClosestAppleHabit implements Habit {
             pSelf.setLocation(selfX, selfY);
 
             double distance = pSelf.distance(pApple);
-            //JSONObject message=new JSONObject();
             Idea message = Idea.createIdea("message","", Idea.guessType("Property",null,1.0,0.5));
             try {
                 if (distance>reachDistance) { //Go to it

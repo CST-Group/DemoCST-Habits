@@ -28,6 +28,7 @@ public class EatClosestAppleHabit implements Habit {
     @Override 
     public Idea exec(Idea idea) {
         Idea root = new Idea("root", "");
+        root.add(new Idea("timeStep", 50));
 
         // get cis
         Idea cis = idea.get("cis");
@@ -83,8 +84,7 @@ public class EatClosestAppleHabit implements Habit {
 			double distance = pSelf.distance(pApple);
 			JSONObject message=new JSONObject();
 			try {
-				if (distance<=reachDistance) { //eat it		
-                    //System.out.println("EatClosestAppleHabit: Eating apple: " + appleName);			
+				if (distance<=reachDistance) { //eat it				
 					message.put("OBJECT", appleName);
 					message.put("ACTION", "EATIT");
                     DestroyClosestApple();
@@ -108,8 +108,6 @@ public class EatClosestAppleHabit implements Habit {
                     root.add(new Idea("activation", activation));
                     return root;  
 				}
-				
-                //System.out.println(message);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -125,10 +123,7 @@ public class EatClosestAppleHabit implements Habit {
             root.add(handsRet);
             root.add(new Idea("activation", activation));
             return root;
-		}
-    //System.out.println("Before: "+known.size()+ " "+known);
-    //System.out.println("After: "+known.size()+ " "+known);
-	//System.out.println("EatClosestApple: "+ handsMO.getInfo());	
+		}	
     }
 
     public void DestroyClosestApple() {

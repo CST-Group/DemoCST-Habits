@@ -39,7 +39,6 @@ public class LegsActionHabit implements Habit {
                     String action=command.getString("ACTION");
                     if (action.equals("FORAGE")) {
                         if (!comm.equals(previousLegsAction)) { 
-                        //if (!comm.equals(previousLegsAction)) 
                             log.info("Sending Forage command to agent");
                             try {  
                                 c.rotate(2);     
@@ -80,12 +79,7 @@ public class LegsActionHabit implements Habit {
 		}
         else {
 			previousLegsAction = comm;
-            log.info("Sending stop command to agent");
-            try {
-                //c.moveto(0,0,0);
-            } catch(Exception e) {
-                e.printStackTrace();
-            }  
+            log.info("Sending stop command to agent"); 
         }
 
         return null;

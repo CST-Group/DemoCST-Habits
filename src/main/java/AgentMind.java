@@ -139,7 +139,6 @@ public class AgentMind extends Mind {
         HabitExecutionerCodelet visionHEC = new HabitExecutionerCodelet("vision");
         visionHEC.addInput(visionHabitMC);
         visionHEC.addOutput(visionMC); // This is the output memory object
-        // visionHEC.setPublishSubscribe(true);
         insertCodelet(visionHEC);
         registerCodelet(visionHEC,"Sensory");
 
@@ -152,7 +151,6 @@ public class AgentMind extends Mind {
         HabitExecutionerCodelet innerSenseHEC = new HabitExecutionerCodelet("innerSense");
         innerSenseHEC.addInput(innerSenseHabitMC);
         innerSenseHEC.addOutput(innerSenseMC); // This is the output memory object
-        // innerSenseHEC.setPublishSubscribe(true);
         insertCodelet(innerSenseHEC);
         registerCodelet(innerSenseHEC,"Sensory");
 
@@ -167,7 +165,6 @@ public class AgentMind extends Mind {
         appleDetectorHEC.addInput(knownApplesMC);
         appleDetectorHEC.addInput(visionMC);
         appleDetectorHEC.addOutput(knownApplesMC); // This is the output memory object
-        // appleDetectorHEC.setPublishSubscribe(true);
         insertCodelet(appleDetectorHEC);
         registerCodelet(appleDetectorHEC,"Perception");
 
@@ -181,7 +178,6 @@ public class AgentMind extends Mind {
         closestAppleDetectorHEC.addInput(innerSenseMC);
         closestAppleDetectorHEC.addInput(knownApplesMC);
         closestAppleDetectorHEC.addOutput(closestAppleMC); // This is the output memory object
-        // closestAppleDetectorHEC.setPublishSubscribe(true);
         insertCodelet(closestAppleDetectorHEC);
         registerCodelet(closestAppleDetectorHEC,"Perception");
 
@@ -195,9 +191,7 @@ public class AgentMind extends Mind {
         goToClosestAppleHEC.addInput(goToClosestAppleHabitMC);
         goToClosestAppleHEC.addInput(closestAppleMC);
         goToClosestAppleHEC.addInput(innerSenseMC);
-        // goToClosestAppleHEC.addInput(legsMC);
         goToClosestAppleHEC.addOutput(legsMC); // This is the output memory object
-        // goToClosestAppleHEC.setPublishSubscribe(true);
         insertCodelet(goToClosestAppleHEC);
         registerCodelet(goToClosestAppleHEC,"Behavioral");
         behavioralCodelets.add(goToClosestAppleHEC);
@@ -214,7 +208,6 @@ public class AgentMind extends Mind {
         eatClosestAppleHEC.addInput(knownApplesMC);
         eatClosestAppleHEC.addOutput(handsMC); // This is the output memory object
         eatClosestAppleHEC.addOutput(knownApplesMC); // This is the output memory object
-        // eatClosestAppleHEC.setPublishSubscribe(true);
         insertCodelet(eatClosestAppleHEC);
         registerCodelet(eatClosestAppleHEC,"Behavioral");
         behavioralCodelets.add(eatClosestAppleHEC);
@@ -227,9 +220,7 @@ public class AgentMind extends Mind {
         HabitExecutionerCodelet forageHEC = new HabitExecutionerCodelet("forage");
         forageHEC.addInput(forageHabitMC);
         forageHEC.addInput(knownApplesMC);
-        // forageHEC.addInput(legsMC);
         forageHEC.addOutput(legsMC); // This is the output memory object
-        // forageHEC.setPublishSubscribe(true);
         insertCodelet(forageHEC);
         registerCodelet(forageHEC,"Behavioral");
         behavioralCodelets.add(forageHEC);
@@ -243,7 +234,6 @@ public class AgentMind extends Mind {
         HabitExecutionerCodelet legsActionHEC = new HabitExecutionerCodelet("legsAction");
         legsActionHEC.addInput(legsActionHabitMC);
         legsActionHEC.addInput(legsMC);
-        // legsActionHEC.setPublishSubscribe(true);
         insertCodelet(legsActionHEC);
         registerCodelet(legsActionHEC,"Motor");
 
@@ -255,15 +245,12 @@ public class AgentMind extends Mind {
         HabitExecutionerCodelet handsActionHEC = new HabitExecutionerCodelet("handsAction");
         handsActionHEC.addInput(handsActionHabitMC);
         handsActionHEC.addInput(handsMC);
-        // handsActionHEC.setPublishSubscribe(true);
         insertCodelet(handsActionHEC);
         registerCodelet(handsActionHEC,"Motor");
 
         // sets a time step for running the codelets to avoid heating too much your machine
         for (Codelet c : this.getCodeRack().getAllCodelets())
             c.setTimeStep(200);
-
-        eatClosestAppleHEC.setTimeStep(50);
         
         start();
         
