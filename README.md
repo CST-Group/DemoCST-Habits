@@ -15,25 +15,6 @@ Habits are executionable actions that can be used to generate new ideas. But, be
 
 To test the possibility of using Habits to work as Codelets, it was proposed to transform DemoCST (a codelets based structure) into DemoCST-Habits, a structure that uses Habits instead of codelets.
 
-## Current problems:
-
-This transition from codelets to habits is still a work in progress. Although it's possible to make DemoCST work with Habits, there some workarounds that are not ideal.
-
-- ### Habit can't output 2 ideas
-    CST still doesn't support a habit that wants to output 2 ideas to 2 different MemoryObjects.
-
-    Because of that, there is that red arrow from eatClosestApple. That relation isn't really added in the code.
-
-    However, the code still works because its possible to write on the KnwonApplesMO by reference, since it's a list. It's not ideal, so CST must be adapted to better support this case.
-
-- ### No Memory Containers
-
-    CST still doesn't support the use of Memory Containers with Habits. 
-
-    Because of that, it was needed to add 2 new green arrows to simulate the use of a Memory Containeer: the 2 green arrows coming from the legsMO (one to goToClosestApple and the other to forage).
-
-    The CST's code is being adapted to better support the use of Memory Containers.
-
 ## DemoCST with Codelets (for comparison)
 
 ![DemoCST with codelets](images/democst-codelets.png)
@@ -41,7 +22,6 @@ This transition from codelets to habits is still a work in progress. Although it
 ## DemoCST with Habits
 
 - Green arrow: new relation added.
-- Red arrow: "fake" relation - not passed as output, but by reference (bug).
 
 ![DemoCST with habits](images/democst-habits.png)
 

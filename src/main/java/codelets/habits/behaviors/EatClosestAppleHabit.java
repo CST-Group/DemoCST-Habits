@@ -31,7 +31,7 @@ public class EatClosestAppleHabit implements Habit {
         root.add(new Idea("timeStep", 50));
 
         // get cis
-        Idea cis = idea.get("cis");
+        Idea cis = idea.get("innerSense");
         if (cis == null) {
             return null;
         }

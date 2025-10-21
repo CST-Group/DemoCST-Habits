@@ -23,7 +23,7 @@ public class GoToClosestAppleHabit implements Habit {
         Idea root = new Idea("root", "");
 
         // get cis
-        Idea cis = idea.get("cis");
+        Idea cis = idea.get("innerSense");
         if (cis == null) {
             return null;
         }

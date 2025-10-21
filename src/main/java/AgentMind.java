@@ -78,7 +78,7 @@ public class AgentMind extends Mind {
 
         // Initialize Memory Containers
         visionMC=createMemoryContainer("vision");
-        innerSenseMC=createMemoryContainer("cis");
+        innerSenseMC=createMemoryContainer("innerSense");
         closestAppleMC=createMemoryContainer("closestApple");
         knownApplesMC=createMemoryContainer("knownApples");
         legsMC=createMemoryContainer("legsAction");
@@ -143,7 +143,7 @@ public class AgentMind extends Mind {
         registerCodelet(visionHEC,"Sensory");
 
         Idea ish = new Idea("innerSenseHabit");
-        Idea cis = getCis();
+        Idea cis = getInnerSense();
         Habit innerSenseHabit = new InnerSenseHabit(env.c, cis);
         ish.setValue(innerSenseHabit);
         ish.setScope(2);
@@ -256,23 +256,23 @@ public class AgentMind extends Mind {
         
     }
 
-    private Idea getCis() {
-        Idea cis = Idea.createIdea("cis","", Idea.guessType("AbstractObject",null,1.0,0.5));
-        cis.add(Idea.createIdea("cis.pitch", 0D, Idea.guessType("Property", null,1.0,0.5)));
-        cis.add(Idea.createIdea("cis.fuel", 0D, Idea.guessType("Property", null,1.0,0.5)));
-        Idea position = Idea.createIdea("cis.position","", Idea.guessType("Property",null,1.0,0.5));
-        position.add(Idea.createIdea("cis.position.x",0D,Idea.guessType("QualityDimension",null,1.0,0.5)));
-        position.add(Idea.createIdea("cis.position.y",0D,Idea.guessType("QualityDimension",null,1.0,0.5)));
+    private Idea getInnerSense() {
+        Idea cis = Idea.createIdea("innerSense","", Idea.guessType("AbstractObject",null,1.0,0.5));
+        cis.add(Idea.createIdea("innerSense.pitch", 0D, Idea.guessType("Property", null,1.0,0.5)));
+        cis.add(Idea.createIdea("innerSense.fuel", 0D, Idea.guessType("Property", null,1.0,0.5)));
+        Idea position = Idea.createIdea("innerSense.position","", Idea.guessType("Property",null,1.0,0.5));
+        position.add(Idea.createIdea("innerSense.position.x",0D,Idea.guessType("QualityDimension",null,1.0,0.5)));
+        position.add(Idea.createIdea("innerSense.position.y",0D,Idea.guessType("QualityDimension",null,1.0,0.5)));
         cis.add(position);
-        Idea fov = Idea.createIdea("cis.FOV","", Idea.guessType("Property", null,1.0,0.5));
-        Idea bounds = Idea.createIdea("cis.FOV.bounds","", Idea.guessType("Property", null,1.0,0.5));
-        bounds.add(Idea.createIdea("cis.FOV.bounds.x",null, Idea.guessType("Property", null,1.0,0.5)));
-        bounds.add(Idea.createIdea("cis.FOV.bounds.y",null, Idea.guessType("Property", null,1.0,0.5)));
-        bounds.add(Idea.createIdea("cis.FOV.bounds.height",null, Idea.guessType("Property", null,1.0,0.5)));
-        bounds.add(Idea.createIdea("cis.FOV.bounds.width",null, Idea.guessType("Property", null,1.0,0.5)));
+        Idea fov = Idea.createIdea("innerSense.FOV","", Idea.guessType("Property", null,1.0,0.5));
+        Idea bounds = Idea.createIdea("innerSense.FOV.bounds","", Idea.guessType("Property", null,1.0,0.5));
+        bounds.add(Idea.createIdea("innerSense.FOV.bounds.x",null, Idea.guessType("Property", null,1.0,0.5)));
+        bounds.add(Idea.createIdea("innerSense.FOV.bounds.y",null, Idea.guessType("Property", null,1.0,0.5)));
+        bounds.add(Idea.createIdea("innerSense.FOV.bounds.height",null, Idea.guessType("Property", null,1.0,0.5)));
+        bounds.add(Idea.createIdea("innerSense.FOV.bounds.width",null, Idea.guessType("Property", null,1.0,0.5)));
         fov.add(bounds);
-        fov.add(Idea.createIdea("cis.FOV.npoints",0, Idea.guessType("Property", null,1.0,0.5)));
-        fov.add(Idea.createIdea("cis.FOV.points","", Idea.guessType("Property", null,1.0,0.5)));
+        fov.add(Idea.createIdea("innerSense.FOV.npoints",0, Idea.guessType("Property", null,1.0,0.5)));
+        fov.add(Idea.createIdea("innerSense.FOV.points","", Idea.guessType("Property", null,1.0,0.5)));
         cis.add(fov);
 
         return cis;
