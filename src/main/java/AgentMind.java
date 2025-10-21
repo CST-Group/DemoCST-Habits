@@ -108,7 +108,7 @@ public class AgentMind extends Mind {
         // Set Habits in Sensory Memory Container
         sensoryMC.setI(vh);
         sensoryMC.setI(ish);
-        sensoryMC.setPolicy(MemoryContainer.Policy.ITERATE);
+        sensoryMC.setPolicy(MemoryContainer.Policy.RANDOM_FLAT);
 
         // Create Sensory Habit Executioner Codelet
         HabitExecutionerCodelet sensoryHEC = new HabitExecutionerCodelet("sensory");
@@ -132,7 +132,7 @@ public class AgentMind extends Mind {
         // Set Habits in Perceptual Memory Container
         perceptualMC.setI(adh);
         perceptualMC.setI(cadh);
-        perceptualMC.setPolicy(MemoryContainer.Policy.ITERATE);
+        perceptualMC.setPolicy(MemoryContainer.Policy.RANDOM_FLAT);
 
         // Create Perceptual Habit Executioner Codelet
         HabitExecutionerCodelet percpetualHEC = new HabitExecutionerCodelet("perceptual");
@@ -165,7 +165,7 @@ public class AgentMind extends Mind {
         behavioralMC.setI(gtcah);
         behavioralMC.setI(ecah);
         behavioralMC.setI(fh);
-        behavioralMC.setPolicy(MemoryContainer.Policy.ITERATE);
+        behavioralMC.setPolicy(MemoryContainer.Policy.RANDOM_FLAT);
 
         // Create Behavioral Habit Executioner Codelet
         HabitExecutionerCodelet behavioralHEC = new HabitExecutionerCodelet("behavioral");
@@ -194,7 +194,7 @@ public class AgentMind extends Mind {
         // Set Habits in Motor Memory Container
         motorMC.setI(lah);
         motorMC.setI(hah);
-        motorMC.setPolicy(MemoryContainer.Policy.ITERATE);
+        motorMC.setPolicy(MemoryContainer.Policy.RANDOM_FLAT);
 
         // Create Motor Habit Executioner Codelet
         HabitExecutionerCodelet motorHEC = new HabitExecutionerCodelet("motor");
@@ -205,7 +205,7 @@ public class AgentMind extends Mind {
 
         // sets a time step for running the codelets to avoid heating too much your machine
         for (Codelet c : this.getCodeRack().getAllCodelets())
-            c.setTimeStep(200);
+            c.setTimeStep(50);
         
         start();
     }
