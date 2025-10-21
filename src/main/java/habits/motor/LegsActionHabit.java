@@ -1,4 +1,4 @@
-package codelets.habits.motor;
+package habits.motor;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,8 +10,6 @@ import br.unicamp.cst.representation.idea.Idea;
 import ws3dproxy.model.Creature;
 
 public class LegsActionHabit implements Habit {
-    private double previousTargetx=0;
-	private double previousTargety=0;
 	private String previousLegsAction="";
     private Creature c;
     double old_angle = 0;
@@ -39,7 +37,7 @@ public class LegsActionHabit implements Habit {
                     String action=command.getString("ACTION");
                     if (action.equals("FORAGE")) {
                         if (!comm.equals(previousLegsAction)) { 
-                            log.info("Sending Forage command to agent");
+                            log.fine("Sending Forage command to agent");
                             try {  
                                 c.rotate(2);     
                             } catch (Exception e) {
@@ -53,19 +51,17 @@ public class LegsActionHabit implements Habit {
 					        double targetx=command.getDouble("X");
 					        double targety=command.getDouble("Y");
 					        if (!comm.equals(previousLegsAction)) {
-                                log.info("Sending move command to agent: ["+targetx+","+targety+"]");
+                                log.fine("Sending move command to agent: ["+targetx+","+targety+"]");
                                 try {
                                     c.moveto(speed, targetx, targety);
                                 } catch(Exception e) {
                                     e.printStackTrace();
                                 }
-					            previousTargetx=targetx;
-					            previousTargety=targety;
                             }
                         }
                                         
 				    } else {
-					    log.info("Sending stop command to agent");
+					    log.fine("Sending stop command to agent");
                         try {
                             c.moveto(0,0,0);
                         } catch(Exception e) {
@@ -79,7 +75,7 @@ public class LegsActionHabit implements Habit {
 		}
         else {
 			previousLegsAction = comm;
-            log.info("Sending stop command to agent"); 
+            log.fine("Sending stop command to agent"); 
         }
 
         return null;

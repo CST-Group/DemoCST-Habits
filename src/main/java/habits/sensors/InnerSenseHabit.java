@@ -1,4 +1,4 @@
-package codelets.habits.sensors;
+package habits.sensors;
 
 import br.unicamp.cst.representation.idea.Habit;
 import br.unicamp.cst.representation.idea.Idea;

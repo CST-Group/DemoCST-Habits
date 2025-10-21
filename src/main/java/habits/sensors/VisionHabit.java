@@ -1,4 +1,4 @@
-package codelets.habits.sensors;
+package habits.sensors;
 
 import java.util.List;
 

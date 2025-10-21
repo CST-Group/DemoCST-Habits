@@ -1,4 +1,4 @@
-package codelets.habits.perception;
+package habits.perception;
 
 import java.util.ArrayList;
 import java.util.Collections;

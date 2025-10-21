@@ -1,4 +1,4 @@
-package codelets.habits.behaviors;
+package habits.behaviors;
 
 import java.util.ArrayList;
 import java.util.Collections;

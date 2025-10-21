@@ -1,4 +1,4 @@
-package codelets.habits.motor;
+package habits.motor;
 
 import java.util.logging.Logger;
 
@@ -42,7 +42,7 @@ public class HandsActionHabit implements Habit {
                         } catch (Exception e) {
                             e.printStackTrace();                        
                         } 
-						log.info("Sending Put In Sack command to agent:****** "+objectName+"**********");
+						log.fine("Sending Put In Sack command to agent:****** "+objectName+"**********");
 					}
 					if (action.equals("EATIT")) {
                         try {
@@ -50,7 +50,7 @@ public class HandsActionHabit implements Habit {
                         } catch (Exception e) {
                             e.printStackTrace();                   
                         }
-						log.info("Sending Eat command to agent:****** "+objectName+"**********");							
+						log.fine("Sending Eat command to agent:****** "+objectName+"**********");							
 					}
 					if (action.equals("BURY")) {
                         try {
@@ -58,7 +58,7 @@ public class HandsActionHabit implements Habit {
                         } catch (Exception e) {
                             e.printStackTrace();                         
                         }
-						log.info("Sending Bury command to agent:****** "+objectName+"**********");							
+						log.fine("Sending Bury command to agent:****** "+objectName+"**********");							
 					}
                 }
 			} catch (JSONException e) {
