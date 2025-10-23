@@ -45,96 +45,120 @@ import ws3dproxy.model.Thing;
  * @author rgudwin
  */
 public class AgentMind extends Mind {
+    Environment env = null;
+
     private static int creatureBasicSpeed=3;
     private static int reachDistance=50;
     public ArrayList<Codelet> behavioralCodelets = new ArrayList<Codelet>();
+
+    // Memories
+    Memory visionMC;
+    Memory innerSenseMC;
+    Memory closestAppleMC;
+    Memory knownApplesMC;
+    Memory legsActionMC;
+    Memory handsActionMC;
+
+    // Habits Memories Containers
+    MemoryContainer sensoryMC;
+    MemoryContainer perceptualMC;
+    MemoryContainer behavioralMC;
+    MemoryContainer motorMC;
     
     public AgentMind(Environment env) {
         super();
+        this.env = env;
 
-        // Memories Groups
+        createMemories();
+        createHabitsMemories();
+
+        createSensorHabits();
+        createPerceptualHabits();
+        createBehavioralHabits();
+        createMotorHabits();
+
+        // Sets a time step for running the codelets to avoid heating too much your machine
+        for (Codelet c : this.getCodeRack().getAllCodelets())
+            c.setTimeStep(20);
+        
+        start();
+    }
+
+    private void createMemories() {
         createMemoryGroup("Sensory");
         createMemoryGroup("Perceptual");
         createMemoryGroup("Motor");
-
-        // Declare Memory Containers
-        Memory visionMC;
-        Memory innerSenseMC;
-        Memory closestAppleMC;
-        Memory knownApplesMC;
-        Memory legsActionMC;
-        Memory handsActionMC;
-
-        // Initialize Memory Containers
+        
         visionMC=createMemoryContainer("vision");
         innerSenseMC=createMemoryContainer("innerSense");
         closestAppleMC=createMemoryContainer("closestApple");
         knownApplesMC=createMemoryContainer("knownApples");
         legsActionMC=createMemoryContainer("legsAction");
         handsActionMC=createMemoryContainer("handsAction");
-
-        // Register Memory Containers
+        
         registerMemory(visionMC,"Sensory");
         registerMemory(innerSenseMC,"Sensory");
         registerMemory(closestAppleMC,"Perceptual");
         registerMemory(knownApplesMC,"Perceptual");
         registerMemory(legsActionMC,"Motor");
         registerMemory(handsActionMC,"Motor");
+    }
+    
+    private void createHabitsMemories() {
+        createMemoryGroup("Habits");
 
-        // Declare Habits Memory Containers
-        MemoryContainer sensoryMC;
-        MemoryContainer perceptualMC;
-        MemoryContainer behavioralMC;
-        MemoryContainer motorMC;
-
-        // Initialize Habits Memory Containers
         sensoryMC = createMemoryContainer("sensoryHabits");
         perceptualMC = createMemoryContainer("perceptualHabits");
         behavioralMC = createMemoryContainer("behavioralHabits");
         motorMC = createMemoryContainer("motorHabits");
 
+        registerMemory(sensoryMC, "Habits");
+        registerMemory(perceptualMC, "Habits");
+        registerMemory(behavioralMC, "Habits");
+        registerMemory(motorMC, "Habits");
+    }
 
-        // Create Sensor Habits
+    private void createSensorHabits() {
+        // Habit 1
         Idea vh = new Idea("visionHabit");
         Habit visionHabit = new VisionHabit(env.c);
         vh.setValue(visionHabit);
         vh.setScope(2);
         
+        // Habit 2
         Idea ish = new Idea("innerSenseHabit");
         Habit innerSenseHabit = new InnerSenseHabit(env.c, getInnerSense());
         ish.setValue(innerSenseHabit);
         ish.setScope(2);
 
-        // Set Habits in Sensory Memory Container
         sensoryMC.setI(vh);
         sensoryMC.setI(ish);
         sensoryMC.setPolicy(MemoryContainer.Policy.RANDOM_FLAT);
 
-        // Create Sensory Habit Executioner Codelet
         HabitExecutionerCodelet sensoryHEC = new HabitExecutionerCodelet("sensory");
         sensoryHEC.addInput(sensoryMC);
         sensoryHEC.addOutput(visionMC);
         sensoryHEC.addOutput(innerSenseMC);
         insertCodelet(sensoryHEC);
+    }
 
-
-        // Create Perception Habits
+    private void createPerceptualHabits() {
+        // Habit 1
         Idea adh = new Idea("appleDetectorHabit");
         Habit appleDetectorHabit = new AppleDetectorHabit();
         adh.setValue(appleDetectorHabit);
         adh.setScope(2);
         
+        // Habit 2
         Idea cadh = new Idea("closestAppleDetectorHabit");
         Habit closestAppleDetectorHabit = new ClosestAppleDetectorHabit();
         cadh.setValue(closestAppleDetectorHabit);
         cadh.setScope(2);
 
-        // Set Habits in Perceptual Memory Container
         perceptualMC.setI(adh);
         perceptualMC.setI(cadh);
         perceptualMC.setPolicy(MemoryContainer.Policy.RANDOM_FLAT);
 
-        // Create Perceptual Habit Executioner Codelet
         HabitExecutionerCodelet percpetualHEC = new HabitExecutionerCodelet("perceptual");
         percpetualHEC.addInput(perceptualMC);
         percpetualHEC.addInput(innerSenseMC);
@@ -143,31 +167,32 @@ public class AgentMind extends Mind {
         percpetualHEC.addOutput(knownApplesMC);
         percpetualHEC.addOutput(closestAppleMC);
         insertCodelet(percpetualHEC);
+    }
 
-
-        // Create Behavior Habits
+    private void createBehavioralHabits() {
+        // Habit 1
         Idea gtcah = new Idea("goToClosestAppleHabit");
         Habit goToClosestAppleHabit = new GoToClosestAppleHabit(creatureBasicSpeed, reachDistance);
         gtcah.setValue(goToClosestAppleHabit);
         gtcah.setScope(2);
 
+        // Habit 2
         Idea ecah = new Idea("eatClosestAppleHabit");
         Habit eatClosestAppleHabit = new EatClosestAppleHabit(reachDistance);
         ecah.setValue(eatClosestAppleHabit);
         ecah.setScope(2);
 
+        // Habit 3
         Idea fh = new Idea("ForageHabit");
         Habit forageHabit = new ForageHabit();
         fh.setValue(forageHabit);
         fh.setScope(2);
 
-        // Set Habits in Behavioral Memory Container
         behavioralMC.setI(gtcah);
         behavioralMC.setI(ecah);
         behavioralMC.setI(fh);
         behavioralMC.setPolicy(MemoryContainer.Policy.RANDOM_FLAT);
 
-        // Create Behavioral Habit Executioner Codelet
         HabitExecutionerCodelet behavioralHEC = new HabitExecutionerCodelet("behavioral");
         behavioralHEC.addInput(behavioralMC);
         behavioralHEC.addInput(innerSenseMC);
@@ -178,36 +203,30 @@ public class AgentMind extends Mind {
         behavioralHEC.addOutput(legsActionMC);
         insertCodelet(behavioralHEC);
         behavioralCodelets.add(behavioralHEC);
+    }
 
-
-        // Create Motor Habits
+    private void createMotorHabits() {
+        // Habit 1
         Idea lah = new Idea("legsActionHabit");
         Habit legsActionHabit = new LegsActionHabit(env.c);
         lah.setValue(legsActionHabit);
         lah.setScope(2);
         
+        // Habit 2
         Idea hah = new Idea("handsActionHabit");
         Habit handsActionHabit = new HandsActionHabit(env.c);
         hah.setValue(handsActionHabit);
         hah.setScope(2);
 
-        // Set Habits in Motor Memory Container
         motorMC.setI(lah);
         motorMC.setI(hah);
         motorMC.setPolicy(MemoryContainer.Policy.RANDOM_FLAT);
 
-        // Create Motor Habit Executioner Codelet
         HabitExecutionerCodelet motorHEC = new HabitExecutionerCodelet("motor");
         motorHEC.addInput(motorMC);
         motorHEC.addInput(legsActionMC);
         motorHEC.addInput(handsActionMC);
         insertCodelet(motorHEC);
-
-        // sets a time step for running the codelets to avoid heating too much your machine
-        for (Codelet c : this.getCodeRack().getAllCodelets())
-            c.setTimeStep(20);
-        
-        start();
     }
 
     private Idea getInnerSense() {
