@@ -21,8 +21,6 @@ To test the possibility of using Habits to work as Codelets, it was proposed to 
 
 ## DemoCST with Habits
 
-- Green arrow: new relation added.
-
 ![DemoCST with habits](images/democst-habits.png)
 
 ## Acknowledgements
