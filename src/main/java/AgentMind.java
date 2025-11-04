@@ -52,12 +52,12 @@ public class AgentMind extends Mind {
     public ArrayList<Codelet> behavioralCodelets = new ArrayList<Codelet>();
 
     // Memories
-    Memory visionMC;
-    Memory innerSenseMC;
-    Memory closestAppleMC;
-    Memory knownApplesMC;
+    Memory visionMO;
+    Memory innerSenseMO;
+    Memory closestAppleMO;
+    Memory knownApplesMO;
     Memory legsActionMC;
-    Memory handsActionMC;
+    Memory handsActionMO;
 
     // Habits Memories Containers
     MemoryContainer sensoryMC;
@@ -79,7 +79,7 @@ public class AgentMind extends Mind {
 
         // Sets a time step for running the codelets to avoid heating too much your machine
         for (Codelet c : this.getCodeRack().getAllCodelets())
-            c.setTimeStep(20);
+            c.setTimeStep(0);
         
         start();
     }
@@ -89,19 +89,19 @@ public class AgentMind extends Mind {
         createMemoryGroup("Perceptual");
         createMemoryGroup("Motor");
         
-        visionMC=createMemoryContainer("vision");
-        innerSenseMC=createMemoryContainer("innerSense");
-        closestAppleMC=createMemoryContainer("closestApple");
-        knownApplesMC=createMemoryContainer("knownApples");
+        visionMO=createMemoryObject("vision");
+        innerSenseMO=createMemoryObject("innerSense");
+        closestAppleMO=createMemoryObject("closestApple");
+        knownApplesMO=createMemoryObject("knownApples");
         legsActionMC=createMemoryContainer("legsAction");
-        handsActionMC=createMemoryContainer("handsAction");
+        handsActionMO=createMemoryObject("handsAction");
         
-        registerMemory(visionMC,"Sensory");
-        registerMemory(innerSenseMC,"Sensory");
-        registerMemory(closestAppleMC,"Perceptual");
-        registerMemory(knownApplesMC,"Perceptual");
+        registerMemory(visionMO,"Sensory");
+        registerMemory(innerSenseMO,"Sensory");
+        registerMemory(closestAppleMO,"Perceptual");
+        registerMemory(knownApplesMO,"Perceptual");
         registerMemory(legsActionMC,"Motor");
-        registerMemory(handsActionMC,"Motor");
+        registerMemory(handsActionMO,"Motor");
     }
     
     private void createHabitsMemories() {
@@ -137,8 +137,8 @@ public class AgentMind extends Mind {
 
         HabitExecutionerCodelet sensoryHEC = new HabitExecutionerCodelet("sensory");
         sensoryHEC.addInput(sensoryMC);
-        sensoryHEC.addOutput(visionMC);
-        sensoryHEC.addOutput(innerSenseMC);
+        sensoryHEC.addOutput(visionMO);
+        sensoryHEC.addOutput(innerSenseMO);
         insertCodelet(sensoryHEC);
     }
 
@@ -161,11 +161,11 @@ public class AgentMind extends Mind {
 
         HabitExecutionerCodelet percpetualHEC = new HabitExecutionerCodelet("perceptual");
         percpetualHEC.addInput(perceptualMC);
-        percpetualHEC.addInput(innerSenseMC);
-        percpetualHEC.addInput(visionMC);
-        percpetualHEC.addInput(knownApplesMC);
-        percpetualHEC.addOutput(knownApplesMC);
-        percpetualHEC.addOutput(closestAppleMC);
+        percpetualHEC.addInput(innerSenseMO);
+        percpetualHEC.addInput(visionMO);
+        percpetualHEC.addInput(knownApplesMO);
+        percpetualHEC.addOutput(knownApplesMO);
+        percpetualHEC.addOutput(closestAppleMO);
         insertCodelet(percpetualHEC);
     }
 
@@ -195,11 +195,11 @@ public class AgentMind extends Mind {
 
         HabitExecutionerCodelet behavioralHEC = new HabitExecutionerCodelet("behavioral");
         behavioralHEC.addInput(behavioralMC);
-        behavioralHEC.addInput(innerSenseMC);
-        behavioralHEC.addInput(closestAppleMC);
-        behavioralHEC.addInput(knownApplesMC);
-        behavioralHEC.addOutput(knownApplesMC);
-        behavioralHEC.addOutput(handsActionMC);
+        behavioralHEC.addInput(innerSenseMO);
+        behavioralHEC.addInput(closestAppleMO);
+        behavioralHEC.addInput(knownApplesMO);
+        behavioralHEC.addOutput(knownApplesMO);
+        behavioralHEC.addOutput(handsActionMO);
         behavioralHEC.addOutput(legsActionMC);
         insertCodelet(behavioralHEC);
         behavioralCodelets.add(behavioralHEC);
@@ -225,7 +225,7 @@ public class AgentMind extends Mind {
         HabitExecutionerCodelet motorHEC = new HabitExecutionerCodelet("motor");
         motorHEC.addInput(motorMC);
         motorHEC.addInput(legsActionMC);
-        motorHEC.addInput(handsActionMC);
+        motorHEC.addInput(handsActionMO);
         insertCodelet(motorHEC);
     }
 
