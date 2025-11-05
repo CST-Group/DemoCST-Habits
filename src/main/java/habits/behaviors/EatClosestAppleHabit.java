@@ -28,7 +28,6 @@ public class EatClosestAppleHabit implements Habit {
     @Override 
     public Idea exec(Idea idea) {
         Idea root = new Idea("root", "");
-        // root.add(new Idea("timeStep", 4));
 
         // get cis
         Idea cis = idea.get("innerSense");
